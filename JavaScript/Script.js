@@ -1,7 +1,8 @@
-let getHumanChoice = prompt("Choose rock, paper or scissors");
+let getHumanChoice;
 let humanScore = 0;
 let computerScore = 0;
 let computerChoice;
+let roundOutcome;
 
 function getComputerChoice() { 
     var x = Math.floor(Math.random() * 2.5);
@@ -23,90 +24,86 @@ function getComputerChoice() {
 getComputerChoice();
 
 function gameOutcome() {
-    if (getHumanChoice != null && getHumanChoice.toUpperCase() === computerChoice.toUpperCase()) {
-        var gameResult = alert("The computer chose  " + computerChoice + ", it's a draw. Your score: " + humanScore + " Computer score : " + computerScore);
+    if (getHumanChoice.toUpperCase() === computerChoice.toUpperCase()) {
+        roundOutcome = "DRAW";
         getComputerChoice();
-        getHumanChoice = prompt("Choose rock, paper or scissors");
-        gameOutcome();
     }
 
-    else if (getHumanChoice != null && getHumanChoice.toUpperCase() === "ROCK" && computerChoice.toUpperCase() === "PAPER") {
+    else if (getHumanChoice.toUpperCase() === "ROCK" && computerChoice.toUpperCase() === "PAPER") {
         computerScore++;
-        gameResult = alert("The computer chose  " + computerChoice + ", the computer won. Your score: " + humanScore + " Computer score : " + computerScore);
-        getHumanChoice = prompt("Choose rock, paper or scissors");
+        roundOutcome = "LOSE"
         getComputerChoice();
-        gameOutcome();
     } 
 
-    else if (getHumanChoice != null && getHumanChoice.toUpperCase() === "ROCK" && computerChoice.toUpperCase() === "SCISSORS") {
+    else if (getHumanChoice.toUpperCase() === "ROCK" && computerChoice.toUpperCase() === "SCISSORS") {
         humanScore++;
-        gameResult = alert("The computer chose  " + computerChoice + ", congratulations, you won! Your score: " + humanScore + " Computer score : " + computerScore);
-        getHumanChoice = prompt("Choose rock, paper or scissors");
+        roundOutcome = "WIN"
         getComputerChoice();
-        gameOutcome();
+        
     }
 
-    else if (getHumanChoice != null && getHumanChoice.toUpperCase() === "PAPER" && computerChoice.toUpperCase() === "SCISSORS") {
+    else if (getHumanChoice.toUpperCase() === "PAPER" && computerChoice.toUpperCase() === "SCISSORS") {
         computerScore++;
-        gameResult = alert("The computer chose  " + computerChoice + ", the computer won. Your score: " + humanScore + " Computer score : " + computerScore); 
-        getHumanChoice = prompt("Choose rock, paper or scissors");
+        roundOutcome = "LOSE"
         getComputerChoice();
-        gameOutcome();
     }
 
-    else if (getHumanChoice != null && getHumanChoice.toUpperCase() === "PAPER" && computerChoice.toUpperCase() === "ROCK") {
+    else if (getHumanChoice.toUpperCase() === "PAPER" && computerChoice.toUpperCase() === "ROCK") {
         humanScore++;
-        gameResult = alert("The computer chose  " + computerChoice + ", congratulations, you won! Your score: " + humanScore + " Computer score : " + computerScore); 
-        getHumanChoice = prompt("Choose rock, paper or scissors");
+        roundOutcome = "WIN"
         getComputerChoice();
-        gameOutcome();
     }
 
-    else if (getHumanChoice != null && getHumanChoice.toUpperCase() === "SCISSORS" && computerChoice.toUpperCase() === "ROCK") {
+    else if (getHumanChoice.toUpperCase() === "SCISSORS" && computerChoice.toUpperCase() === "ROCK") {
         computerScore++;
-        gameResult = alert("The computer chose  " + computerChoice + ", the computer won. Your score: " + humanScore + " Computer score : " + computerScore) 
-        getHumanChoice = prompt("Choose rock, paper or scissors");
+        roundOutcome = "LOSE"        
         getComputerChoice();
-        gameOutcome();
-    }
-
-    else if (getHumanChoice != null && getHumanChoice.toUpperCase() === "SCISSORS" && computerChoice.toUpperCase() === "PAPER") {
-        humanScore++;
-        gameResult = alert("The computer chose  " + computerChoice + ", congratulations, you won! Your score: " + humanScore + " Computer score : " + computerScore); 
-        getHumanChoice = prompt("Choose rock, paper or scissors");
-        getComputerChoice();
-        gameOutcome();
     }
 
     else if (getHumanChoice == null || getHumanChoice == undefined) {
-        function continueGame() {
-            var wannaQuit = prompt("Are you sure you want to quit the game?");
-            if (wannaQuit.toUpperCase() === "YES") {
-                alert("Ok, good bye then! see you soon.");
-            }
-
-            else if (wannaQuit.toUpperCase() === "NO") {
-                getHumanChoice = prompt("Choose rock, paper or scissors");
-                getComputerChoice();
-                gameOutcome();
-            }
-
-            else {
-                continueGame();
-            }
-        };
-        
-        continueGame();    
+        computerScore;
+        humanScore;
     }
 
     else {
-        getHumanChoice = prompt("You entered an invalid value, please choose rock, paper or scissors");
-        gameOutcome();   
+        humanScore++;
+        roundOutcome = "WIN";
+        getComputerChoice();
     }
 
-    return;
-}
+    const p = document.querySelector("p");
+    
+    if (roundOutcome === "WIN") {
+        p.textContent = "Congratulations, you won! Your score: " + humanScore + " Computer score : " + computerScore; 
+    }
 
-gameOutcome();
+    else if (roundOutcome === "LOSE") {
+        p.textContent = "The computer won. Your score: " + humanScore + " Computer score : " + computerScore;
+    }
 
-alert("Your score: " + humanScore + " The computer's score: " + computerScore);
+    else if (roundOutcome === "DRAW") {
+        p.textContent = "It's a tie. Your score: " + humanScore + " Computer score : " + computerScore;
+    }
+
+    else {
+        p.textContent = ""
+    }
+};
+
+const rock = document.querySelector("#rock");
+rock.addEventListener("click", () => {
+    getHumanChoice = "ROCK"
+    gameOutcome();
+});
+
+const paper = document.querySelector("#paper");
+paper.addEventListener("click", () => {
+    getHumanChoice = "PAPER"
+    gameOutcome();
+});
+
+const scissors = document.querySelector("#scissors");
+scissors.addEventListener("click", () => {
+    getHumanChoice = "SCISSORS"
+    gameOutcome();
+});
