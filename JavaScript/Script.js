@@ -60,11 +60,6 @@ function gameOutcome() {
         getComputerChoice();
     }
 
-    else if (getHumanChoice == null || getHumanChoice == undefined) {
-        computerScore;
-        humanScore;
-    }
-
     else {
         humanScore++;
         roundOutcome = "WIN";
@@ -81,12 +76,8 @@ function gameOutcome() {
         p.textContent = "The computer won. Your score: " + humanScore + " Computer score : " + computerScore;
     }
 
-    else if (roundOutcome === "DRAW") {
-        p.textContent = "It's a tie. Your score: " + humanScore + " Computer score : " + computerScore;
-    }
-
     else {
-        p.textContent = ""
+        p.textContent = "It's a tie. Your score: " + humanScore + " Computer score : " + computerScore;
     }
 };
 
